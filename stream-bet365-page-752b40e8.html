@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stream-bet365 漫谈 · 一个安静的站点介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", sans-serif;
+            background: #f5f3ef;
+            color: #1e1b18;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 深色头图 — 故事感的开场 */
+        .hero {
+            background: linear-gradient(145deg, #12100e 0%, #23201d 100%);
+            color: #e4ddd4;
+            padding: 4rem 2rem 3.8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #b8a99a, transparent);
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 350;
+            letter-spacing: 0.02em;
+            word-break: break-word;
+        }
+
+        .hero h1 .light {
+            font-weight: 280;
+            color: #b8a99a;
+        }
+
+        .hero .opening {
+            margin-top: 1.2rem;
+            font-size: 1.15rem;
+            font-weight: 330;
+            color: #cfc5b8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* 浅色正文区 — 舒缓的叙述节奏 */
+        .content {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+            background: #faf8f5;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+
+        .story p {
+            margin-bottom: 1.6rem;
+            font-size: 1.05rem;
+            color: #2d2824;
+        }
+
+        .story p:first-of-type:first-letter {
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #5a4f44;
+            margin-right: 1px;
+            line-height: 1;
+        }
+
+        /* 特点卡片 — 轻柔的视觉分隔 */
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2.4rem 0 2.6rem;
+        }
+
+        .feature-card {
+            flex: 1 1 200px;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.6rem 1.3rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0,0,0,0.02);
+            border: 1px solid #eae6e0;
+            transition: box-shadow 0.2s, transform 0.1s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .feature-card .icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.2rem;
+            display: block;
+            color: #7f6b56;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 550;
+            margin: 0.3rem 0 0.5rem;
+            color: #2b2621;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #4f463f;
+            margin-bottom: 0;
+        }
+
+        /* 强调色用于链接 */
+        a {
+            color: #8b6f54;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+            font-weight: 450;
+        }
+
+        a:hover {
+            color: #5c4534;
+            border-bottom-color: #b2977e;
+        }
+
+        /* 温和结尾 / 提示区 */
+        .closing-note {
+            margin-top: 2.8rem;
+            padding: 1.8rem 1.6rem;
+            background: #f0ece6;
+            border-radius: 20px;
+            border-left: 4px solid #b8a694;
+            color: #2c2722;
+        }
+
+        .closing-note p {
+            margin-bottom: 0.3rem;
+        }
+
+        .closing-note .small {
+            font-size: 0.9rem;
+            color: #645a50;
+            margin-top: 0.6rem;
+        }
+
+        .faq-hint {
+            margin: 2.2rem 0 1rem;
+            border-top: 1px solid #ddd8d0;
+            padding-top: 2rem;
+        }
+
+        .faq-hint details {
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #e9e2d9;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-hint summary {
+            font-weight: 470;
+            color: #3a332d;
+            cursor: pointer;
+            list-style: none;
+            display: inline-block;
+        }
+
+        .faq-hint summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-hint summary::before {
+            content: "▸ ";
+            color: #8b6f54;
+            font-size: 1.1rem;
+        }
+
+        .faq-hint details[open] summary::before {
+            content: "▾ ";
+        }
+
+        .faq-hint .answer {
+            margin-left: 0.2rem;
+            padding: 0.5rem 0 0.3rem 1.2rem;
+            color: #3f3832;
+            font-size: 0.97rem;
+        }
+
+        /* 响应式细节 */
+        @media (max-width: 640px) {
+            .hero {
+                padding: 3rem 1.2rem 2.6rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .content {
+                padding: 2rem 1.2rem 3rem;
+            }
+            .feature-grid {
+                flex-direction: column;
+            }
+            .feature-card {
+                flex: 1 1 auto;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0d9d0;
+            margin: 2rem 0 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>一个关于 <span class="light">stream‑bet365</span> 的小站</h1>
+    <div class="opening">
+        偶尔停下，看一段流畅的画面。<br>
+        不需要太多理由。
+    </div>
+</div>
+
+<div class="content">
+    <div class="story">
+        <p>
+            最初只是想在浏览器里找到一个稳定的地方，能偶尔看看体育赛事或者直播的片段。后来慢慢发现，<a href="https://stream-bet365.com">bet365</a> 这个站点在不少讨论里被提到——有人觉得它界面整洁，也有人在意它的加载速度。我花了一点时间翻了翻，觉得与其四处听零散的评价，不如自己做个简单的记录页，把看到的东西整理一下。
+        </p>
+
+        <p>
+            这里不是什么官方说明，也不是什么“最全指南”。我只是想从一个普通使用者的角度，说说我在这个网站上留意到的几个特点，或许能给路过的你一点点参考。
+        </p>
+    </div>
+
+    <!-- 特点列表：卡片式 -->
+    <div class="feature-grid">
+        <div class="feature-card">
+            <span class="icon">◈</span>
+            <h3>版面干净</h3>
+            <p>没有过度花哨的装饰，信息层级清楚，找内容的时候不容易分心。</p>
+        </div>
+        <div class="feature-card">
+            <span class="icon">◈</span>
+            <h3>多平台适配</h3>
+            <p>电脑、平板、手机上的显示都比较自然，没有明显错位或元素遮挡。</p>
+        </div>
+        <div class="feature-card">
+            <span class="icon">◈</span>
+            <h3>直播整合</h3>
+            <p>页面内直接嵌入播放区域，不需要另外跳转或安装额外工具。</p>
+        </div>
+        <div class="feature-card">
+            <span class="icon">◈</span>
+            <h3>更新频率</h3>
+            <p>内容会随着赛事或时段变化，不是那种几个月不动的静态页。</p>
+        </div>
+    </div>
+
+    <p>
+        当然，每个人在意的点不太一样。有人看重流畅度，有人更关心界面语言是否熟悉。如果你有空，可以自己去感受一下——直接打开 <a href="https://stream-bet365.com">bet365</a> 看一眼，比任何描述都直接。
+    </p>
+
+    <!-- 场景 / 提示 混合段落 -->
+    <div class="closing-note">
+        <p><strong>一点小提醒</strong></p>
+        <p>访问任何站点时，留意地址栏是否以 <code>https</code> 开头，以及页面有没有异常弹窗。保持浏览习惯干净，比什么都重要。</p>
+        <p class="small">—— 以上只是个人留意，不构成推荐或保证。站点内容随时可能变化，请以实际页面为准。</p>
+    </div>
+
+    <!-- FAQ 摘要 — 轻量问答 -->
+    <div class="faq-hint">
+        <details>
+            <summary>这个页面和 stream‑bet365 是什么关系？</summary>
+            <div class="answer">这只是个人制作的介绍页，不属于官方页面。站内所有描述基于公开信息和主观感受。</div>
+        </details>
+        <details>
+            <summary>为什么只提到 bet365 这一个链接？</summary>
+            <div class="answer">因为页面焦点就是围绕这个站点展开的，其他相关链接没有放到这里。想了解更多可以自行探索。</div>
+        </details>
+        <details>
+            <summary>页面内容会更新吗？</summary>
+            <div class="answer">可能会随着站点变化做小幅调整，但不会频繁更新。建议直接访问原站获取最新信息。</div>
+        </details>
+    </div>
+
+    <hr>
+    <p style="font-size:0.9rem; color:#6f6459; text-align:center; margin-top:0.8rem;">
+        stream-bet365 · 一个安静的站点介绍
+    </p>
+</div>
+
+</body>
+</html>
